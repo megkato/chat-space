@@ -2,9 +2,9 @@
 
 |Column|Type|Options|
 |------|----|-------|
-|email|string|null: false|
+|email|string|null: false, unique: true|
 |password|string|null: false|
-|name|string|null: false|
+|name|string|index: true, null: false, unique:true|
 
 ### Association
 - has_many :messages
@@ -14,7 +14,7 @@
 
 |Column|Type|Options|
 |------|----|-------|
-|group_name|text|null: false|
+|group_name|text|index: true, null: false|
 |user_id|integer|null: false, foreign_key: true|
 
 ### Association
@@ -27,7 +27,7 @@
 |Column|Type|Options|
 |------|----|-------|
 |body|text|null: false|
-|image|integer|
+|image|string|
 |group_id|integer|null: false, foreign_key: true|
 |user_id|integer|null: false, foreign_key: true|
 
