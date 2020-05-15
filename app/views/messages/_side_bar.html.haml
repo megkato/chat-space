@@ -1,0 +1,14 @@
+.side-header
+  .side-header__box
+   %p.side-header__box__user-name
+   %ul.side-header__box__menu
+    %li.side-header__box__menu__new-groupe
+      = link_to "/group/new" do
+        %i.fa.fa-edit 
+          ::before
+    %li.side-header__box__menu__edit-user
+      = link_to "/users/23342/edit" do
+        %i.fa.fa-cog
+          ::before
+
+.groups
