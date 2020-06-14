@@ -1,16 +1,20 @@
 .side-bar {
-  box-sizing: border-box;
   color: $white;
   width: 300px;
+  // float: left;
   .header {
     background-color: $side_blue_dark;
     height: 100px;
-    line-height: 100px;
+    align-items: center;
     padding: 0 20px;
+    // .header__box {
+    //   display: flex;
+    //   align-items: center;
     &__name {
       display: inline-block;
       font-size: $side_header_font;
       font-weight: bold;
+      line-height: 100px;
     }
     &__lists {
       display: inline-block;
@@ -21,14 +25,18 @@
       .icon {
         color: $white;
         font-size: $side_header_font;
+        line-height: 100px;
       }
-    }
+    // }
+    } 
   }
 
   .groups {
     background-color: $side_blue_light;
     height: calc(100vh - 100px);
-    padding: 0 20px;
+    padding: 20px 20px 0;
+    overflow: scroll;
+
     .group {
       box-sizing: border-box;
       padding: 20px 0 40px;
