@@ -56,14 +56,16 @@ $(function(){
       var html = buildHTML(data);
       $('.messages').append(html);
       $("form")[0].reset();
-      $('input').prop('disabled', false);
       $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
     return false;
     })
-      .fail(function() {
-        alert("メッセージ送信に失敗しました");
-      });
+    .fail(function() {
+      alert("メッセージ送信に失敗しました");
     })
+    .always(function(){
+      $('input').prop('disabled', false);
+    });
+  })
 
   var reloadMessages = function () {
       var last_message_id = $('.message:last').data("message-id");
