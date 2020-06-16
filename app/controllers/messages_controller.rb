@@ -3,6 +3,8 @@ class MessagesController < ApplicationController
 
   def index
     @message = Message.new
+    # group = Group.find(params[:group_id]) 
+    # last_message_id = params[:id].to_i 
     @messages = @group.messages.includes(:user)
   end
 

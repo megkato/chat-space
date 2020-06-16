@@ -53,47 +53,45 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      //追加するHTMLの入れ物を作る
-      var insertHTML = '';
-      //配列messagesの中身一つ一つを取り出し、HTMLに変換したものを入れ物に足し合わせる
-      $.each(messages, function(i, message) {
-        insertHTML += buildHTML(message)
-      });
-      //メッセージが入ったHTMLに、入れ物ごと追加
-      $('.messages').append(insertHTML);
-    })
-    .fail(function() {
-      alert("メッセージ送信に失敗しました");
-    });
-    $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
+      var html = buildHTML(data);
+      $('.messages').append(html);
+      $("form")[0].reset();
+      $('input').prop('disabled', false);
+      $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
     return false;
-    
-  });
-  var reloadMessages = function () {
-    if (window.location.href.match(/\/groups\/\d+\/messages/)){
-      var last_message_id = $('.message:last').data("message-id"); 
+    })
+      .fail(function() {
+        alert("メッセージ送信に失敗しました");
+      });
+    })
 
+  var reloadMessages = function () {
+      var last_message_id = $('.message:last').data("message-id");
+      console.log(last_message_id);
       $.ajax({ 
         url: "api/messages", 
         type: 'get', 
         dataType: 'json', 
-        data: {last_id: last_message_id} 
+        data: {id: last_message_id} 
       })
-      .done(function (messages) {
-        if (messages.length !== 0) { 
+      .done(function(messages) {
+        if (messages.length !== 0) {
+        //追加するHTMLの入れ物を作る
         var insertHTML = '';
-        messages.forEach(function (message) {
-          insertHTML = buildHTML(message); 
-          $('.messages').append(insertHTML);
-        })
+        //配列messagesの中身一つ一つを取り出し、HTMLに変換したものを入れ物に足し合わせる
+        $.each(messages, function(i, message) {
+          insertHTML += buildHTML(message)
+        });
+        //メッセージが入ったHTMLに、入れ物ごと追加
+        $('.messages').append(insertHTML);
         $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
       }
-      })
-      .fail(function () {
-        alert('自動更新に失敗しました');
-      });
-    }
+    })
+    .fail(function () {
+      alert('自動更新に失敗しました');
+    });
   };
-  setInterval(reloadMessages, 7000);
-  });
-  
+  if (document.location.href.match(/\/groups\/\d+\/messages/)) {
+    setInterval(reloadMessages ,7000);
+  }
+});
